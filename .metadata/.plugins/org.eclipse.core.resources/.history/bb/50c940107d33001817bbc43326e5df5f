@@ -1,0 +1,13 @@
+package com.belljava.dao;
+
+import java.util.List;
+
+
+
+import com.belljava.dto.Category;
+
+public interface CategoryDAO {
+	
+	List<Category> list();
+
+}

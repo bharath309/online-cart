@@ -1,0 +1,48 @@
+package com.belljava.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.belljava.dao.CategoryDAO;
+import com.belljava.dto.Category;
+import com.belljava.service.CategoryService;
+
+@Service
+@Transactional
+public class CategoryServiceImpl implements CategoryService {
+	@Autowired
+	private CategoryDAO categoryDAO;
+	@Override
+	public void add(Category category) {
+		categoryDAO.add(category);
+		
+	}
+
+	@Override
+	public void edit(Category category) {
+		categoryDAO.edit(category);
+		
+	}
+
+	@Override
+	public void delete(int categoryId) {
+		categoryDAO.delete(categoryId);
+		
+	}
+
+	@Override
+	public Category getCategory(int categoryId) {
+		
+		return categoryDAO.getCategory(categoryId);
+	}
+
+	@Override
+	public List getAllCategories() {
+		// TODO Auto-generated method stub
+		return categoryDAO.getAllCategories();
+	}
+
+}

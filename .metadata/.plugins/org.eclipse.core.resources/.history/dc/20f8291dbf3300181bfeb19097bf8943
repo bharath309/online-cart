@@ -1,0 +1,17 @@
+package com.belljava.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.belljava.dto.Category;
+
+
+@Component
+public interface CategoryDAO {
+	
+	public boolean add(Category category);
+	List<Category> list();
+	 Category get(int id);
+
+}

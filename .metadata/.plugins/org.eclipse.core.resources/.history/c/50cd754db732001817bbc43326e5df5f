@@ -1,0 +1,20 @@
+$(function(){
+  switch(menu){
+         case 'About Us':
+              $('#about').addCLass('active');
+              break;
+              
+         case 'Contact':
+              $('#contact').addCLass('active');
+              break;
+         
+         default:
+              $('#home').addCLass('active');
+              break;     
+  
+  
+  }
+
+
+
+});

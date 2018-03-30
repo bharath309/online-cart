@@ -1,0 +1,25 @@
+$(function(){
+  switch(menu){
+         case 'About Us':
+              $('#about').addCLass('active');
+              break;
+              
+         case 'Contact':
+              $('#contact').addCLass('active');
+              break;
+              
+         case 'All Products' :
+        	 $('#listProducts').addCLass('active');
+             break;
+        	 
+         
+         default:
+              $('#listProducts').addCLass('active');
+              break;     
+  
+  
+  }
+
+
+
+});

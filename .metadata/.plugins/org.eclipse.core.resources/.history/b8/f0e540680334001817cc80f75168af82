@@ -1,0 +1,103 @@
+package com.belljava.daoimpl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+//import org.springframework.stereotype.Repository;
+
+import com.belljava.dao.CategoryDAO;
+import com.belljava.dto.Category;
+
+@Component
+@Repository("categoryDAO")
+public class CategoryDAOimpl implements CategoryDAO {
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource=new DriverManagerDataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("Srreddy95");
+		return dataSource;
+	}
+	private JdbcTemplate jdbcTemplate() {
+		JdbcTemplate jdbcTemplate=new JdbcTemplate();
+		return jdbcTemplate;
+	}
+	JdbcTemplate jt=new JdbcTemplate();
+	private static List<Category> categories = new ArrayList<>();
+
+	public int save(Category c) {
+		
+		String sql="insert into Category(id,name,description,url,active)values('"+c.getCategoryId()+"',"+c.getName()+","+c.getDescription()+","+c.getImageURL()+",'"+c.isActive()+"')";			 
+		return jt.update(sql) ;
+		
+	}
+	public int update(Category c) {
+		
+		String sql="update category set name='"+c.getName()+"',description='"+c.getDescription()+"',url='"+c.getImageURL()+"',active='"+c.isActive()+"'where id='"+c.getCategoryId()+"'";
+		return jt.update(sql);	
+	}
+	public int delete(int id) {
+		String sql="delete from category where id='"+id+"'";
+		return jt.update(sql);
+	}
+	public Category getCategoryById(int id) {
+		String sql="select*from category where id=?";
+		
+		return jt.queryForObject(sql,new Object[] {id},new BeanPropertyRowMapper<Category> (Category.class)) ;
+		
+	}
+	
+	public List<Category> getCategories(){
+		return jt.query("select * from category", new RowMapper<Category>() {
+
+			@Override
+			public Category mapRow(ResultSet rs, int row) throws SQLException {
+				// TODO Auto-generated method stub
+				Category categories=new Category();
+				categories.setCategoryId(rs.getInt(1));
+				categories.setName(rs.getString(2));
+				categories.setDescription(rs.getString(3));
+				categories.setImageURL(rs.getString(4));
+				categories.setActive(rs.getBoolean(5));
+				return categories;
+			}
+			
+		});
+	}
+	
+
+	public List<Category> list() {
+		//return list of categories
+		return categories;
+	}
+	public Category get(int id) {
+		//enhance for loop
+		for(Category category:categories) {
+			if(category.getCategoryId()==id)
+				return category;
+		}
+		return null;
+	}
+	@Override
+	public List getAllCategories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+
+}

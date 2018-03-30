@@ -1,0 +1,5 @@
+jdbc.driverClassName=org.postgresql.Driver
+jdbc.diaelct=org.hibernate.dialect.ProgressDialect
+jdbc.databaseurl=jdbc:postgresql://localhost:5432/postgres
+jdbc.username=postgres
+jdbc.password=Srreddy95

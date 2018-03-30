@@ -1,0 +1,81 @@
+package com.belljava.daoimpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+//import org.springframework.stereotype.Repository;
+
+import com.belljava.dao.CategoryDAO;
+import com.belljava.dto.Category;
+
+@Component
+@Repository("categoryDAO")
+public class CategoryDAOimpl implements CategoryDAO {
+	
+	@Autowired
+	private SessionFactory session;
+
+	private static List<Category> categories = new ArrayList<>();
+
+
+	
+
+	@Override
+	public List<Category> list() {
+		//return list of categories
+		return categories;
+	}
+	@Override
+	public Category get(int id) {
+		//enhance for loop
+		for(Category category:categories) {
+			if(category.getCategoryId()==id)
+				return category;
+		}
+		return null;
+	}
+	@Override
+	public void add(Category category) {
+		session.getCurrentSession().save(category);
+	}
+
+
+
+	@Override
+	public void edit(Category category) {
+		session.getCurrentSession().update(category);
+		
+	}
+
+
+
+	@Override
+	public void delete(int categoryId) {
+		session.getCurrentSession().delete(categoryId);
+		
+	}
+
+
+
+	@Override
+	public Category getCategory(int categoryId) {
+	
+		return (Category)session.getCurrentSession().get(Category.class, categoryId);
+	}
+
+
+
+	@Override
+	public List getAllCategories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+}

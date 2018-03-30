@@ -1,0 +1,43 @@
+package com.belljava.test;
+
+import org.junit.BeforeClass;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.belljava.dao.CategoryDAO;
+import com.belljava.dto.Category;
+
+public class CategoryTestCase {
+	
+	private static AnnotationConfigApplicationContext context;
+	
+	private static  CategoryDAO categoryDAO;
+	
+	private Category category;
+
+	@BeforeClass
+	public static void init() {
+		context=new AnnotationConfigApplicationContext();
+		context.scan("com.belljava");
+		context.refresh();
+		categoryDAO=(CategoryDAO) context.getBean("categoryDAO");
+	}
+	/*@Test
+	public void testAddCategory() {
+		category= new Category();
+		category.setName("Telivision");
+		category.setDescription("LG TV Flatron");
+		category.setImageURL("CAT-1.png");
+		assertEquals("SuccessFully added ",true,categoryDao.add(category));
+	}*/
+	
+	@Test
+	public void testGetCategory() {
+		category = categoryDAO.get(3);
+		assertEquals("SuccessFully fetched a single category from the table ","Telivision",category.getName());
+		
+		
+	}
+}

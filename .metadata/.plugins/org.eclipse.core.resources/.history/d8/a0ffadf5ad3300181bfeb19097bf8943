@@ -1,0 +1,5 @@
+package com.belljava.dao;
+
+public interface RegisterDAO {
+
+}

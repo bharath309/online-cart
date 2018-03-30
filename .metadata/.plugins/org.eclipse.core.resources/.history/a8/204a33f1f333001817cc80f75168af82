@@ -1,0 +1,59 @@
+package com.belljava.onlinecart.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.belljava.dto.Category;
+import com.belljava.service.CategoryService;
+
+@Controller
+public class CategoryController {
+	
+	@Autowired
+	private CategoryService categoryService;
+	
+	@RequestMapping("/categorylist")
+	public String setupForm(Map<String, Object>map) {
+		Category category=new Category();
+		map.put("category", category);
+		map.put("categoryList", categoryService.getAllCategories());
+		return "category";
+	}
+	
+	@RequestMapping(value="/category", method=RequestMethod.POST)
+	public String doActions(@ModelAttribute Category category,BindingResult result,@RequestParam String action, Map<String, Object> map) {
+		Category categoryResult=new Category();
+		switch(action.toLowerCase()) {
+		case "add":
+			categoryService.add(category);
+			categoryResult=category;
+			break;
+		case "edit":
+			categoryService.edit(category);
+			categoryResult=category;
+			break;
+		case "delet":
+			categoryService.delete(category.getCategoryId());
+			categoryResult=category;
+			break;
+		case "search":
+			Category searchedCategory=categoryService.getCategory(category.getCategoryId());
+			categoryResult=searchedCategory!=null ? searchedCategory:new Category();
+			break;
+		
+		}
+		map.put("category", categoryResult);
+		map.put("categoryList", categoryService.getAllCategories());
+		return "category";
+		
+	}
+	
+
+}

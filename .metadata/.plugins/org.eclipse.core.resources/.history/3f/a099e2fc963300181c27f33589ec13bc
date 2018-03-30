@@ -1,0 +1,9 @@
+package com.belljava.dao;
+
+public interface LoginDAO {
+
+	String processLogin(String user, String pass);
+	
+	
+
+}

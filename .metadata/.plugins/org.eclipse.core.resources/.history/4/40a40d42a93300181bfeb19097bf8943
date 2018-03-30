@@ -1,0 +1,18 @@
+package com.belljava.config;
+
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@ComponentScan(basePackages="com.belljava")
+@EnableTransactionManagement
+public class HibernateConfig {
+	private final static String DATABASE_URL="";
+	private final static String DATABASE_DRIVER="";
+	private final static String DATABASE_DIALECT="";
+	private final static String DATABASE_USERNAME="";
+	private final static String DATABASE_PASSWORD="";
+
+}

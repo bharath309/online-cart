@@ -1,0 +1,15 @@
+package com.belljava.daoimpl;
+
+import com.belljava.dao.LoginDAO;
+
+public class LoginDAOimpl implements LoginDAO{
+
+	@Override
+	public String processLogin(String user, String pass) {
+		
+		
+		
+		return null;
+	}
+
+}

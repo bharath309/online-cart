@@ -1,0 +1,5 @@
+package com.belljava.daoimpl;
+
+public class LoginDAOimpl {
+
+}
